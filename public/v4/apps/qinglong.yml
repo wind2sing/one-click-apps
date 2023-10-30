@@ -1,6 +1,6 @@
 captainVersion: 4
 services:
-    web:
+    $$cap_appname:
         image: whyour/qinglong:$$cap_qinglong_version
         volumes:
             - $$cap_appname-data:/ql/data
