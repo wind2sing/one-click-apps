@@ -1,0 +1,22 @@
+captainVersion: 4
+version: '2'
+services:
+    web:
+        image: whyour/qinglong:$$cap_qinglong_version
+        volumes:
+            - $$cap_appname-data:/ql/data
+        environment:
+            QlBaseUrl: '/'
+        restart: unless-stopped
+        caproverExtra:
+            containerHttpPort: '5700'
+caproverOneClickApp:
+    variables:
+        - id: $$cap_qinglong_version
+          label: Qinglong Version Tag
+          defaultValue: latest
+    instructions:
+        start: Qinglong is a timed task management platform supporting Python3, JavaScript, Shell, Typescript
+        end: Qinglong is deployed and available as $$cap_appname
+    displayName: qinglong
+    description: Timed task management platform supporting Python3, JavaScript, Shell, Typescript
