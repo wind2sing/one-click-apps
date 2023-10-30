@@ -1,0 +1,17 @@
+captainVersion: 4
+services:
+    $$cap_appname:
+        image: stilleshan/x-ui
+        restart: always
+        volumes:
+            - $$cap_appname-data:/etc/x-ui
+            - $$cap_appname-ssl:/ssl
+        caproverExtra:
+            containerHttpPort: '54321'
+caproverOneClickApp:
+    variables: []
+    instructions:
+        start: x-ui is a v2ray panel.
+        end: x-ui is deployed and available as $$cap_appname
+    displayName: x-ui
+    description: Support multi-protocol multi-user v2ray panel.

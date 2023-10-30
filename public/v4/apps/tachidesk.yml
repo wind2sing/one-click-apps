@@ -1,10 +1,10 @@
 captainVersion: 4
 services:
     $$cap_appname:
-        image: wind2sing/tiddlywiki:$$cap_imageversion
+        image: ghcr.io/suwayomi/tachidesk:$$cap_imageversion
         restart: always
         volumes:
-            - $$cap_appname-data:/tiddlywiki
+            - $$cap_appname-data:/home/suwayomi/.local/share/Tachidesk
         environment:
             TW_USERNAME: $$cap_username
             TW_PASSWORD: $$cap_password
@@ -12,13 +12,17 @@ services:
             TW_READERS: $$cap_readers
             TW_WIKINAME: $$cap_wikiname
         caproverExtra:
-            containerHttpPort: '8080'
+            containerHttpPort: '4567'
 caproverOneClickApp:
     variables:
         - id: $$cap_imageversion
           label: Image Version
           defaultValue: latest
           description: Docker image version from https://hub.docker.com/r/wind2sing/tiddlywiki
+        - id: $$cap_timezone
+          label: timezone
+          defaultValue: Asia/Shanghai
+          description: Change the default UTC timezone.
         - id: $$cap_username
           label: Username
           defaultValue: anonymous
