@@ -1,5 +1,4 @@
 captainVersion: 4
-version: '2'
 services:
     web:
         image: whyour/qinglong:$$cap_qinglong_version
