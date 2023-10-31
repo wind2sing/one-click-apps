@@ -4,33 +4,31 @@ services:
         image: hectorqin/reader:$$cap_reader_version
         restart: always
         volumes:
-            - $$cap_appname-logs:/logs #log映射目录 /home/reader/logs 映射目录可自行修改
-            - $$cap_appname-data:/storage #数据映射目录 /home/reader/storage 映射目录可自行修改
-        environment:
-            - SPRING_PROFILES_ACTIVE=prod
-            #- READER_APP_USERLIMIT=50 #用户上限,默认且最大值为50
-            - READER_APP_USERBOOKLIMIT=200 #用户书籍上限,默认200
-            - READER_APP_CACHECHAPTERCONTENT=true #开启缓存章节内容
-            - READER_APP_REMOTEWEBVIEWAPI=http://srv-captain--$$cap_appname-webview:8050 #启用webview(若下方readerwebview容器不开启需注释此行
-            # ↓多用户模式配置↓
-            - READER_APP_SECURE=true #开启登录鉴权，开启后将支持多用户模式
-            - READER_APP_SECUREKEY=admin #管理员密码  建议修改
+            - $$cap_appname-logs:/logs
+            - $$cap_appname-data:/storage
+        environment: SPRING_PROFILES_ACTIVE=prod
+            READER_APP_USERBOOKLIMIT=200
+            READER_APP_CACHECHAPTERCONTENT=true
+            READER_APP_REMOTEWEBVIEWAPI=http://srv-captain--$$cap_appname-webview:8050
+            READER_APP_SECURE=true
+            READER_APP_SECUREKEY=$$cap_app_securekey
         caproverExtra:
             containerHttpPort: '8080'
-    # 如需支持webview书源，打开(占用较大，不需要可加 # 注释)
     $$cap_appname-webview:
         image: hectorqin/remote-webview
         container_name: readerwebview
         restart: always
-        environment:
-            - TZ=Asia/Shanghai
+        environment: TZ=Asia/Shanghai
         caproverExtra:
             containerHttpPort: '8050'
 caproverOneClickApp:
     variables:
         - id: $$cap_reader_version
           label: Reader Version Tag
-          defaultValue: latest # Openj9镜像，arm64架构或小内存机器优先使用
+          defaultValue: latest
+        - id: $$cap_app_securekey
+          label: Reader APP Securekey
+          defaultValue: admin
     instructions:
         start: YueDu is a tool that offers online literature search, providing a convenient, quick, and comfortable trial reading experience for online literature enthusiasts.
         end: Yuedu is deployed and available as https://$$cap_appname.$$cap_root_domain
