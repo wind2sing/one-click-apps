@@ -8,7 +8,8 @@ services:
             - $$cap_appname-data:/storage
         environment:
             SPRING_PROFILES_ACTIVE: prod
-            READER_APP_USERBOOKLIMIT: 200
+            READER_APP_DEFAULTUSERBOOKLIMIT: 999
+            READER_APP_DEFAULTUSERBOOKSOURCELIMIT: 99999
             READER_APP_CACHECHAPTERCONTENT: true
             READER_APP_REMOTEWEBVIEWAPI: http://srv-captain--$$cap_appname-webview:8050
             READER_APP_SECURE: true
