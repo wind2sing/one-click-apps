@@ -6,19 +6,21 @@ services:
         volumes:
             - $$cap_appname-logs:/logs
             - $$cap_appname-data:/storage
-        environment: SPRING_PROFILES_ACTIVE=prod
-            READER_APP_USERBOOKLIMIT=200
-            READER_APP_CACHECHAPTERCONTENT=true
-            READER_APP_REMOTEWEBVIEWAPI=http://srv-captain--$$cap_appname-webview:8050
-            READER_APP_SECURE=true
-            READER_APP_SECUREKEY=$$cap_app_securekey
+        environment:
+            SPRING_PROFILES_ACTIVE: prod
+            READER_APP_USERBOOKLIMIT: 200
+            READER_APP_CACHECHAPTERCONTENT: true
+            READER_APP_REMOTEWEBVIEWAPI: http://srv-captain--$$cap_appname-webview:8050
+            READER_APP_SECURE: true
+            READER_APP_SECUREKEY: $$cap_app_securekey
         caproverExtra:
             containerHttpPort: '8080'
     $$cap_appname-webview:
         image: hectorqin/remote-webview
         container_name: readerwebview
         restart: always
-        environment: TZ=Asia/Shanghai
+        environment:
+            TZ: Asia/Shanghai
         caproverExtra:
             containerHttpPort: '8050'
 caproverOneClickApp:
