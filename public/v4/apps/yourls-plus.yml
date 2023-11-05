@@ -1,7 +1,7 @@
 captainVersion: 4
 services:
     $$cap_appname:
-        image: wind2sing/yourls
+        image: yourls
         restart: always
         environment:
             YOURLS_DB_HOST: $$cap_yourls_db_host
@@ -16,7 +16,7 @@ caproverOneClickApp:
     variables:
         - id: $$cap_yourls_db_host
           label: External database host
-          defaultValue: srv-captain--maria-db
+          defaultValue: srv-captain--mysql-db
         - id: $$cap_yourls_db_user
           label: External MySQL username
           defaultValue: root
@@ -29,7 +29,7 @@ caproverOneClickApp:
           label: yourls password
           defaultValue: yourls
     instructions:
-        start: Your Own URL Shortener with additional theme and plugins.(No database)
+        start: Your Own URL Shortener.(No database)
         end: YOURLS is deployed and available as $$cap_appname. You need to Enable HTTPS or change Environmental Variable YOURLS_SITE.
-    displayName: YOURLS-plus
-    description: Your Own URL Shortener with additional theme and plugins.
+    displayName: YOURLS
+    description: Your Own URL Shortener.
