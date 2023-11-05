@@ -14,7 +14,7 @@ services:
             containerHttpPort: '80'
 caproverOneClickApp:
     variables:
-        - id: $$cap_docker_version
+        - id: $$cap_imageversion
           label: Docker Version Tag
           defaultValue: latest
         - id: $$cap_yourls_db_host
