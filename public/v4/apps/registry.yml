@@ -1,0 +1,34 @@
+captainVersion: 4
+
+services:
+    $$cap_appname:
+        image: registry:$$cap_registry_version
+        restart: always
+        environment:
+            REGISTRY_PROXY_REMOTEURL: $$cap_registry_remote_url
+        caproverExtra:
+            containerHttpPort: 5000
+
+caproverOneClickApp:
+    variables:
+        - id: $$cap_registry_version
+          label: Registry Version Tag
+          description: Check out their Docker page for the valid tags https://hub.docker.com/_/registry?tab=tags
+          defaultValue: '2'
+          validRegex: /^([^\s^\/])+$/
+        - id: $$cap_registry_remote_url
+          label: Remote Registry URL
+          defaultValue: https://registry-1.docker.io
+          description: The URL of the remote registry to use as a proxy.
+          validRegex: /.{1,}/
+    instructions:
+        start: |-
+            This one-click app will deploy a private Docker registry with a proxy to a remote registry.
+            You can customize the registry version and configure the remote registry URL using the variables below.
+        end: |-
+            The private registry is now deployed at http://$$cap_appname.$$cap_root_domain.
+            You can push/pull images to/from this registry using docker push $$cap_appname.$$cap_root_domain/your-image:tag
+    displayName: Private Docker Registry
+    isOfficial: true
+    description: Private Docker registry with proxy to a remote registry
+    documentation: Deploys a private Docker registry with proxy configuration.
