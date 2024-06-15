@@ -1,0 +1,50 @@
+captainVersion: 4
+services:
+    $$cap_appname:
+        image: yisier1/nps:$$cap_nps_version
+        restart: always
+        volumes:
+            - $$cap_appname-conf:/conf
+        ports:
+            - '8024:8024'
+            - '8025:8025'
+        caproverExtra:
+            containerHttpPort: '8080'
+volumes:
+    $$cap_appname-conf:
+        driver: local
+        driver_opts:
+            type: none
+            device: $$cap_nps_conf_dir
+            o: bind
+
+caproverOneClickApp:
+    variables:
+        - id: $$cap_nps_version
+          label: NPS Version
+          defaultValue: 'latest'
+          description: Check out their Docker page for the valid tags https://hub.docker.com/r/yisier1/nps/tags
+          validRegex: /^([^\s^\/])+$/
+        - id: $$cap_nps_conf_dir
+          label: NPS Config Directory
+          defaultValue: '/nps/conf'
+          description: NPS will use this directory to store config files. You can customize it.
+          validRegex: /.+/
+    instructions:
+        start: |-
+            NPS is a lightweight, high-performance, powerful intranet penetration proxy server, with a powerful web management terminal.
+
+            After installation, access web admin portal via: 
+            http://ServerIP:8080
+            Default username/password: admin/123
+
+            It will take about a minute for the process to finish.
+        end: |-
+            NPS is deployed and available as $$cap_appname.
+
+            Access the web admin portal:  http://$$cap_appname.$$cap_root_domain:8080
+
+    displayName: NPS Intranet Penetration Proxy
+    isOfficial: false
+    description: NPS is a lightweight, high-performance, powerful intranet penetration proxy server.
+    documentation: Docker image taken from https://hub.docker.com/r/yisier1/nps
