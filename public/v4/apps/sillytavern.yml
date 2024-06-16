@@ -1,0 +1,48 @@
+captainVersion: 4
+version: 3.3
+
+services:
+    $$cap_appname:
+        image: ghcr.io/sillytavern/sillytavern:$$cap_version
+        volumes:
+            - $$cap_appname_config:/home/node/app/config
+            - $$cap_appname_data:/home/node/app/data
+            - $$cap_appname_plugins:/home/node/app/plugins
+        environment:
+            TZ: $$cap_tz
+        caproverExtra:
+            containerHttpPort: '8000'
+
+caproverOneClickApp:
+    variables:
+        - id: '$$cap_version'
+          label: SillyTavern Version
+          defaultValue: 'latest'
+          description: Check out their GitHub packages page for valid tags https://github.com/SillyTavern/SillyTavern/pkgs/container/sillytavern
+          validRegex: '/.{1,}/'
+
+        - id: $$cap_tz
+          label: Time Zone
+          defaultValue: 'Asia/Shanghai'
+          description: The time zone for the app. Use TZ database name from https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
+          validRegex: '/^[a-zA-Z0-9_-]{1,}\/[a-zA-Z0-9_-]{1,}$/'
+
+    instructions:
+        start: |-
+            This is a one-click installer for SillyTavern, a front-end to AI models like ChatGPT. 
+            It provides a web-based UI to chat with AI characters.
+
+            Select the SillyTavern version you want to install and click deploy.
+            The app data will be automatically stored in Docker volumes.
+
+        end: |-
+            SillyTavern is deployed and available at http://$$cap_appname.$$cap_root_domain
+            The config, data and plugins are stored in the following Docker volumes:
+            Config: $$cap_appname_config  
+            Data: $$cap_appname_data
+            Plugins: $$cap_appname_plugins
+
+    displayName: SillyTavern
+    isOfficial: false
+    description: A multi-purpose, user-friendly web application to interact with large language models.
+    documentation: Docker documentation adapted from https://github.com/SillyTavern/SillyTavern
