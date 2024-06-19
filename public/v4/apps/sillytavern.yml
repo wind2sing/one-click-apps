@@ -5,9 +5,9 @@ services:
     $$cap_appname:
         image: ghcr.io/sillytavern/sillytavern:$$cap_version
         volumes:
-            - $$cap_appname_config:/home/node/app/config
-            - $$cap_appname_data:/home/node/app/data
-            - $$cap_appname_plugins:/home/node/app/plugins
+            - $$cap_appname-config:/home/node/app/config
+            - $$cap_appname-data:/home/node/app/data
+            - $$cap_appname-plugins:/home/node/app/plugins
         environment:
             TZ: $$cap_tz
         caproverExtra:
